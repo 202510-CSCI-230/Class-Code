@@ -4,7 +4,7 @@
 using namespace std;
 
 void dostuff(unsigned a){
-    cout << "I got " << a << endl;
+    cout << "I got " << a << endl;    
 }
 
 int main(){

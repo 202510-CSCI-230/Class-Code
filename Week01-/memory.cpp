@@ -1,7 +1,7 @@
 
 #include <iostream>
 
-#define SIZE 1000000
+#define SIZE 2000000
 using namespace std;
 
 int main(){
