@@ -17,6 +17,7 @@ int main(){
     int b = 6;
 
     int* c = &a;
+    float* another;
 
     cout << "a: " << a << " b: " << b << " c: " << *c << endl;
 
