@@ -1,5 +1,6 @@
 #include <iostream>
 #include <pthread.h>
+#include <cstdint>
 
 #define THREADS 10
 
@@ -14,16 +15,27 @@ struct thread_t{
     float cost;
 };
 
+
+uint64_t lehmer64(__uint128_t &g_lehmer64_state) {
+  g_lehmer64_state *= 0xda942042e4dd58b5;
+  return g_lehmer64_state >> 64;
+}
+
 void* throw_darts(void* dummy){
     thread_t* args = (thread_t*)dummy;
+
+    __uint128_t state = args->threadid + 1;
+    //cout << args->threadid << endl;
 
     unsigned local_inside = 0;
     unsigned long local_total = 0;
 
     for(unsigned long i = 0; i < 1000000; i++){
-        float x = rand() / (float)RAND_MAX * 2.0 - 1.0;
+        float x = lehmer64(state) / (float)0xffffffffffffffff * 2.0 - 1.0;
+        //float x = rand() / (float)RAND_MAX * 2.0 - 1.0;
         //cout << x << endl;
-        float y = rand() / (float)RAND_MAX * 2.0 - 1.0;
+        float y = lehmer64(state) / (float)0xffffffffffffffff * 2.0 - 1.0;
+        //float y = rand() / (float)RAND_MAX * 2.0 - 1.0;
         //cout << y << endl;
 
         if( x*x + y*y <= 1.0){
